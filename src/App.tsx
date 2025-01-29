@@ -10,7 +10,7 @@ function App() {
     return (
         <main className="flex flex-col">
 
-            <Header/>
+            <div className="sticky"><Header/></div>
 
             <section className="content">
                 <FavouriteProvider>

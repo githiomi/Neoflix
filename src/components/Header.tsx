@@ -14,7 +14,7 @@ const Header = () => {
 
                 <img src={appLogo} alt="App Logo" className="logo"/>
 
-                <h3 className="brand-text uppercase text-4xl text-red-500 font-extrabold tracking-wide">Neoflix</h3>
+                <h3 className="brand-text uppercase text-4xl text-red-600 font-extrabold tracking-wide">Neoflix</h3>
 
             </div>
 
