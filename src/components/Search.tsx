@@ -3,10 +3,11 @@ import * as React from "react";
 import {Dispatch, SetStateAction} from "react";
 
 type TSearchProps = {
+    searchTerm : string;
     setSearchTerm : Dispatch<SetStateAction<string>>
 }
 
-const Search = ({setSearchTerm} : TSearchProps) => {
+const Search = ({searchTerm, setSearchTerm} : TSearchProps) => {
 
 
     const handleSearch = (event : React.ChangeEvent<HTMLInputElement>)=> {
@@ -21,7 +22,7 @@ const Search = ({setSearchTerm} : TSearchProps) => {
         <>
             <div className="flex flex-row items-center gap-5 border-2 border-red-600 w-[30%] mx-auto p-3 rounded-2xl ">
                 <FaSearch size={20} className="text-red-600"/>
-                <input className="search-input grow" type="text" placeholder="Search for any movie..." onChange={handleSearch} />
+                <input className="search-input grow" type="text" placeholder="Search for any movie..." value={searchTerm} onChange={handleSearch} />
 
             </div>
 
