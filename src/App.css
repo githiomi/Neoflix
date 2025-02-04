@@ -1,35 +1,36 @@
 #root {
-    max-width: 1480px;
-    margin: 0 auto;
-    padding: 0 3rem;
+  max-width: 1480px;
+  margin: 0 auto;
+  padding: 0 3rem;
 }
 
 .logo {
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
-    transition: filter 300ms;
-    cursor: pointer;
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+  cursor: pointer;
 }
 
 .link {
-    padding: 0 1rem;
+  padding: 0 1rem;
 }
 
-.link:hover, .icon:hover {
-    cursor: pointer;
-    color: rgba(255, 0, 0);
-    transition: color 300ms;
+.link:hover,
+.icon:hover {
+  cursor: pointer;
+  color: rgba(255, 0, 0);
+  transition: color 300ms;
 }
 
 .logo:hover {
-    filter: drop-shadow(0 0 2em rgba(255, 0, 0, 0.5));
+  filter: drop-shadow(0 0 2em rgba(255, 0, 0, 0.5));
 }
 
 /* Banner Component*/
 .banner_image {
-    width: 40%;
-    margin: 0 auto;
+  width: 40%;
+  margin: 0 auto;
 }
 
 /*Search Component*/
@@ -38,10 +39,9 @@
   outline: none;
 }
 
-.search-input:focus{
+.search-input:focus {
   outline: none;
 }
-
 
 /*@keyframes logo-spin {*/
 /*  from {*/
@@ -57,4 +57,3 @@
 /*    animation: logo-spin infinite 20s linear;*/
 /*  }*/
 /*}*/
-

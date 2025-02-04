@@ -1,14 +1,17 @@
-import {useContext, useEffect, useState} from "react";
-import {FavouriteContext} from "../contexts/FavouriteContext.tsx";
-import {Movie} from "../data/Movie.ts";
+import { useState } from "react";
+import { Movie } from "../data/Movie.ts";
 import Trending from "../components/Trending.tsx";
 import Banner from "../components/Banner.tsx";
 import Search from "../components/Search.tsx";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import Response from "../data/Response.ts";
+import MovieCard from "../components/MovieCard.tsx";
 
 const Home = () => {
 
     const API_BASE_URL: string = "https://api.themoviedb.org/3" as string;
-    const API_KEY: string = import.meta.env.VITE_API_READ_ACCESS_TOKEN;
+    const API_KEY: string = import.meta.env.VITE_TMDB_API_TOKEN;
     const API_OPTIONS = {
         method: "GET",
         headers: {
@@ -16,56 +19,66 @@ const Home = () => {
             Authorization: `Bearer ${API_KEY}`
         }
     }
-    const [fetchError, setFetchError] = useState("");
 
-    const fetchInitialMovies = async () => {
+    const fetchInitialMovies = async (): Promise<Movie[]> => {
 
-        try {
-            const endpoint : string = `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
+        const endpoint: string = `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
 
-            const response:Response = await fetch(endpoint, API_OPTIONS);
-            const movies = await response.body;
+        const response = await axios.get(endpoint, API_OPTIONS);
+        const movies: Response = await response.data;
 
-            console.log(movies)
+        console.log(movies)
 
-        } catch (error) {
-            console.error("Error: " + error)
-            setFetchError((e) => `Error: ${e}`);
-        } finally {
-            console.log("Movie fetching complete")
-        }
+        return movies.results;
     }
 
-    const {favourites} = useContext(FavouriteContext);
     const [search, setSearch] = useState<string>("")
 
-    useEffect(() => {
-        fetchInitialMovies()
-    }, []);
+    const {
+        data: fetchedMovies,
+        isLoading: isMoviesLoading,
+        isError: isMoviesError,
+        error: movieFetchError
+    } = useQuery({
+        queryKey: ["Movies"],
+        queryFn: fetchInitialMovies
+    });
+
+    if (isMoviesError)
+        return <div className="text-red-600">There was an error: {movieFetchError.message}</div>
 
     return (
         <>
-            <div className="pattern"/>
+            <div className="pattern" />
 
-            <Banner/>
+            <Banner />
 
-            <Search searchTerm={search} setSearchTerm={setSearch}/>
+            <Search searchTerm={search} setSearchTerm={setSearch} />
 
-            You have searched for: {search}
+            <p>You have searched for: {search}</p>
 
-            {
-                fetchError && <strong>There was an error fetching the movies: {fetchError}</strong>
-            }
+            <Trending />
 
-            <Trending/>
+            {isMoviesLoading && (
+                <div className="text-green-500 uppercase">
+                    <p>Loading...</p>
+                </div>
+            )}
 
-            <ul>
-                {
-                    favourites?.length != 0
-                        ? favourites?.map((movie: Movie) => <li key={movie.id}>{movie.title}</li>)
-                        : <strong> There are no favourites</strong>
-                }
-            </ul>
+            {fetchedMovies && (
+                <>
+                    <p className="text-[#747bff] text-2xl font-bold uppercase text-center">These are your movies</p>
+
+                    {
+                        fetchedMovies.map((movie: Movie) => (
+                            <div key={movie.id} className="movie-card">
+                                Movie name: <span className="text-red-600 font-bold">{movie.title}</span>
+                                <MovieCard movie={movie} />
+                            </div>))
+                    }
+                </>
+            )}
+
         </>
     )
 }
