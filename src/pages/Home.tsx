@@ -70,11 +70,8 @@ const Home = () => {
                     <p className="text-[#747bff] text-2xl font-bold uppercase text-center">These are your movies</p>
 
                     {
-                        fetchedMovies.map((movie: Movie) => (
-                            <div key={movie.id} className="movie-card">
-                                Movie name: <span className="text-red-600 font-bold">{movie.title}</span>
-                                <MovieCard movie={movie} />
-                            </div>))
+                        fetchedMovies.map(
+                            (movie: Movie) => <MovieCard key={movie.id} movie={movie} />)
                     }
                 </>
             )}
