@@ -73,18 +73,20 @@ const Home = () => {
 
             {fetchedMovies?.length
                 ? (
-                    <>
+                    <section className="all-movies">
                         <p className="text-red-500 text-2xl font-bold uppercase">
                             {search
                                 ? `Search Results for ${search.trim()}`
                                 : "Explore Our Wide Range of Movies!"}
                         </p>
 
-                        {
-                            fetchedMovies.map(
-                                (movie: Movie) => <MovieCard key={movie.id} movie={movie} />)
-                        }
-                    </>
+                        <ul>
+                            {
+                                fetchedMovies.map(
+                                    (movie: Movie) => <MovieCard key={movie.id} movie={movie} />)
+                            }
+                        </ul>
+                    </section>
                 )
                 : !isFetchingMovies && (
                     <p className="text-center text-red-600 text-2xl uppercase">No Movies Found!</p>
