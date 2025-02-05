@@ -13,7 +13,7 @@ const MovieCard = ({ movie: { title, vote_average, poster_path, release_date, or
 
          <Image imageUrl={poster_path} alt={`${title} Poster`} />
 
-         <div className="movie-title flex flex-row gap-4">
+         <div className=" my-4 mx-2 movie-title flex flex-row gap-4">
             <h3 className="text-red-600 text-xl uppercase">{title}</h3>
             {adult && <span className="movie-extra">PG-13</span>}
          </div>

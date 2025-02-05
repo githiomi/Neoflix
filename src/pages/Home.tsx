@@ -7,9 +7,11 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Response from "../data/Response.ts";
 import MovieCard from "../components/MovieCard.tsx";
+import { useDebounce } from 'react-use';
 
 const Home = () => {
 
+    // Constants
     const API_BASE_URL: string = "https://api.themoviedb.org/3" as string;
     const API_KEY: string = import.meta.env.VITE_TMDB_API_TOKEN;
     const API_OPTIONS = {
@@ -20,28 +22,32 @@ const Home = () => {
         }
     }
 
-    const fetchInitialMovies = async (): Promise<Movie[]> => {
+    // State Managers
+    const [search, setSearch] = useState<string>("")
+    const [searchDebounce, setSearchDebounce] = useState("");
 
-        const endpoint: string = `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
+    useDebounce(() => setSearchDebounce(search.trim()), 500, [search]);
+
+    const fetchMovies = async (searchQuery: string = ''): Promise<Movie[]> => {
+
+        const endpoint: string = searchQuery
+            ? `${API_BASE_URL}/search/movie?query=${encodeURI(searchQuery)}}`
+            : `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
 
         const response = await axios.get(endpoint, API_OPTIONS);
         const movies: Response = await response.data;
 
-        console.log(movies)
-
         return movies.results;
     }
 
-    const [search, setSearch] = useState<string>("")
-
     const {
         data: fetchedMovies,
-        isLoading: isMoviesLoading,
+        isFetching: isFetchingMovies,
         isError: isMoviesError,
         error: movieFetchError
     } = useQuery({
-        queryKey: ["Movies"],
-        queryFn: fetchInitialMovies
+        queryKey: ["Movies", searchDebounce],
+        queryFn: () => fetchMovies(searchDebounce),
     });
 
     if (isMoviesError)
@@ -59,22 +65,30 @@ const Home = () => {
 
             <Trending />
 
-            {isMoviesLoading && (
+            {isFetchingMovies && (
                 <div className="text-green-500 uppercase">
-                    <p>Loading...</p>
+                    <p>Loading. Please wait...</p>
                 </div>
             )}
 
-            {fetchedMovies && (
-                <>
-                    <p className="text-[#747bff] text-2xl font-bold uppercase text-center">These are your movies</p>
+            {fetchedMovies?.length
+                ? (
+                    <>
+                        <p className="text-red-500 text-2xl font-bold uppercase">
+                            {search
+                                ? `Search Results for ${search.trim()}`
+                                : "Explore Our Wide Range of Movies!"}
+                        </p>
 
-                    {
-                        fetchedMovies.map(
-                            (movie: Movie) => <MovieCard key={movie.id} movie={movie} />)
-                    }
-                </>
-            )}
+                        {
+                            fetchedMovies.map(
+                                (movie: Movie) => <MovieCard key={movie.id} movie={movie} />)
+                        }
+                    </>
+                )
+                : !isFetchingMovies && (
+                    <p className="text-center text-red-600 text-2xl uppercase">No Movies Found!</p>
+                )}
 
         </>
     )
