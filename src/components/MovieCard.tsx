@@ -1,19 +1,28 @@
-import { Movie } from "@/data/Movie"
+import Movie from "@/data/Movie"
 import '../index.css';
 import Image from "./Image";
 import { FaHeart, FaStar } from "react-icons/fa";
-import { useState } from "react";
+import { useMovieContext } from "../contexts/FavouriteContext";
 
 type MovieCardProps = {
    movie: Movie
 };
 
-const MovieCard = ({ movie: { title, vote_average, poster_path, release_date, original_language, adult, genre_ids } }: MovieCardProps) => {
+const MovieCard = (props: MovieCardProps) => {
 
-   const [isFavourite, setIsFavourite] = useState(false);
+   const movie = props.movie;
+   const { id, title, vote_average, poster_path, release_date, original_language, adult, genre_ids } = movie;
 
-   const handleFavouriteClick = () => {
-      setIsFavourite((currentValue) => !currentValue);
+   const { isFavourite, addToFavourites, removeFromFavourites } = useMovieContext();
+   const favourite = isFavourite(id);
+
+   const handleFavouriteClick = (e: React.MouseEvent<HTMLDivElement>) => {
+      e.preventDefault();
+      if (favourite) {
+         removeFromFavourites(id);
+      } else {
+         addToFavourites(movie);
+      }
    };
 
    return (
@@ -22,7 +31,7 @@ const MovieCard = ({ movie: { title, vote_average, poster_path, release_date, or
          <div className="overlay">
 
             <div className="favourite" onClick={handleFavouriteClick}>
-               <FaHeart className={isFavourite ? 'text-red-600' : 'text-white'} size={15} />
+               <FaHeart className={favourite ? 'text-red-600' : 'text-white'} size={15} />
             </div>
 
             <Image imageUrl={poster_path} alt={`${title} Poster`} />

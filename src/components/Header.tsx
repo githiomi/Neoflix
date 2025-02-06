@@ -1,7 +1,7 @@
 import appLogo from '../assets/images/app_logo.png';
 import '../App.css'
-import {NavLink} from "react-router-dom";
-import {FaBell, FaSearch} from "react-icons/fa";
+import { NavLink } from "react-router-dom";
+import { FaBell, FaSearch } from "react-icons/fa";
 
 const Header = () => {
 
@@ -12,7 +12,7 @@ const Header = () => {
 
             <div className="logo brand flex items-center">
 
-                <img src={appLogo} alt="App Logo" className="logo"/>
+                <img src={appLogo} alt="App Logo" className="logo" />
 
                 <h3 className="brand-text uppercase text-4xl text-red-600 font-extrabold tracking-wide">Neoflix</h3>
 
@@ -25,12 +25,12 @@ const Header = () => {
                 </ul>
             </nav>
 
-            <div className="user flex flex-row items-center gap-5">
-                <FaSearch className="icon text-white hover:text-red-500" size={20}/>
-                <FaBell className="icon text-white hover:text-red-500" size={20}/>
+            <div className="user flex flex-row items-center gap-5 mr-20">
+                <FaSearch className="icon text-white hover:text-red-500" size={20} />
+                <FaBell className="icon text-white hover:text-red-500" size={20} />
 
                 <div className="user-profile">
-                    <img src={profile_placeholder} alt="Profile Picture" className="h-[50px] w-[50px]"/>
+                    <img src={profile_placeholder} alt="Profile Picture" className="h-[50px] w-[50px]" />
                 </div>
             </div>
 

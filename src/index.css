@@ -23,6 +23,9 @@ body {
   padding: 0;
   min-width: 320px;
   min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
 }
 
 h1 {
@@ -139,7 +142,7 @@ button:focus-visible {
     }
 
     & .favourite {
-      @apply hidden rounded-full border-2 border-white p-2;
+      @apply hidden bg-black rounded-full border-2 border-white p-2;
     }
 
     & img {
@@ -185,12 +188,12 @@ button:focus-visible {
 }
 
 @utility text-gradient {
-  @apply bg-linear-to-b from-red-200 to-red-600 bg-clip-text text-transparent;
+  @apply bg-linear-to-b from-red-200 to-red-400 bg-clip-text text-transparent;
 }
 
 @utility fancy-text {
-  -webkit-text-stroke: 5px rgba(206, 206, 251, 0.5);
-  font-size: 190px;
+  -webkit-text-stroke: 3px rgba(206, 206, 251, 0.5);
+  font-size: 100px;
   font-family: "Bebas Neue", sans-serif;
 }
 

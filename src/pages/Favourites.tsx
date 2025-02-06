@@ -1,44 +1,30 @@
-import {useContext, useState} from "react";
-import {FavouriteContext} from "../contexts/FavouriteContext.tsx";
-import {Movie} from "../data/Movie.ts";
+import Movie from "../data/Movie.ts";
+import MovieCard from "..//components/MovieCard.tsx";
+import { useMovieContext } from "../contexts/FavouriteContext.tsx";
 
 const Favourites = () => {
 
-    const [counter, setCounter] = useState(1);
-    const favouritesContext = useContext(FavouriteContext);
-    const {favourites, addToFavourites, removeFromFavourites} = favouritesContext;
+    const { favourites } = useMovieContext();
 
-    const addFavourite = () => {
-        const movie : Movie = {
-            id: counter,
-            title: `Movie ${counter}`
-        }
-
-        setCounter( prev => prev + 1);
-
-        addToFavourites(movie);
-    }
-
-    const removeFavourite = () => {
-        removeFromFavourites(counter);
-    }
+    if (favourites?.length == 0)
+        return (
+            <section className="min-h-[80vh] flex flex-row items-center justify-center">
+                <h4 className="text-red-500 text-2xl font-bold uppercase text-center" > You haven't added any movies to your favourites yet.</h4>
+            </section>
+        )
 
     return (
-        <>
-            <div>Favourites</div>
+        <section className="all-movies">
+            <h3 className="my-8 text-4xl font-bold uppercase text-center">Your <span className="text-gradient">Favourite</span> Movies</h3>
 
-            <div>
-                <h3 className="text-2xl font-bold">These are your favourites</h3>
+            <ul>
+                {
+                    favourites?.map(
+                        (movie: Movie) => <MovieCard key={movie.id} movie={movie} />)
 
-                {favourites != null
-                ? favourites?.map( favourite => <li key={favourite.id}>{favourite.title}</li>)
-                : <h4 className="text-red-500">You have no favourites</h4>}
-            </div>
-
-            <button onClick={() => addFavourite()} value="Add Movie" >Add</button>
-
-            <button onClick={() => removeFavourite()} value="Remove Favourite" >Remove</button>
-        </>
+                }
+            </ul>
+        </section>
     )
 }
 export default Favourites

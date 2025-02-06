@@ -1,4 +1,4 @@
-export interface Movie {
+export default interface Movie {
     adult: boolean
     backdrop_path: string
     genre_ids: number[]
