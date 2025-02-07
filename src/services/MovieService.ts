@@ -1,6 +1,7 @@
 import axios from "axios";
 import Movie from "../data/Movie";
 import Response from "../data/Response";
+import { updateTrendingMovies } from '../appwrite.ts';
 
 // Constants
 const API_BASE_URL: string = "https://api.themoviedb.org/3" as string;
@@ -19,9 +20,20 @@ export const fetchMovies = async (searchQuery: string = ""): Promise<Movie[]> =>
       ? `${API_BASE_URL}/search/movie?query=${encodeURI(searchQuery)}}`
       : `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
 
-   const response = await axios.get(endpoint, API_OPTIONS);
-   const movies: Response = await response.data;
+   const result = await axios.get(endpoint, API_OPTIONS);
 
-   return movies.results;
+   if (result.status != 200) {
+      alert('Error occurred while fetching movies');
+      throw new Error('Error occurred while fetching movies');
+   }
+
+   const response: Response = await result.data;
+   const movies = response.results;
+
+   if (searchQuery && movies.length > 0) {
+      updateTrendingMovies(searchQuery, movies[0]);
+   }
+
+   return movies;
 
 }

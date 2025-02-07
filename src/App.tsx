@@ -1,13 +1,13 @@
 import './App.css'
+import User from './data/User.ts';
 import Home from "./pages/Home.tsx";
+import { SEX } from './data/Sex.ts';
 import Profile from './pages/Profile.tsx';
 import Header from "./components/Header.tsx";
 import ErrorComponent from './pages/Error.tsx';
 import Favourites from "./pages/Favourites.tsx";
 import { Route, Routes } from "react-router-dom";
 import { FavouriteProvider } from "./contexts/FavouriteContext.tsx";
-import User from './data/User.ts';
-import { SEX } from './data/Sex.ts';
 
 function App() {
 

@@ -66,7 +66,7 @@ const MovieCard = (props: MovieCardProps) => {
 
                   <div className="genres text-amber-400">
                      {genre_ids
-                        ? genre_ids.map(genre_id => <span>{genre_id} - </span>)
+                        ? genre_ids.map((genre_id, index) => <span key={index}>{genre_id} - </span>)
                         : "No Genres Available"}
                   </div>
                </div>

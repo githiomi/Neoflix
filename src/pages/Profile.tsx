@@ -49,7 +49,7 @@ const Profile = ({ user }: ProfileProps) => {
    }
 
    return (
-      <section id="profile" className="min-h-full mt-8 flex flex-col">
+      <section id="profile" className="min-h-[80vh] mt-8 flex flex-col">
 
          <p className="text-3xl text-white uppercase font-bold text-center">View <span className="text-gradient">Profile</span> Details</p>
 

@@ -1,7 +1,6 @@
 import '../App.css';
 import { CSSProperties } from 'react';
-import Image from '../components/Image';
-import appLogo from '../assets/images/app_icon.png';
+import appLogo from '../assets/images/app_logo.png';
 import { NavLink, NavLinkRenderProps } from "react-router-dom";
 import { FaArrowCircleDown, FaBell, FaSearch } from "react-icons/fa";
 
@@ -25,7 +24,7 @@ const Header = () => {
 
             <NavLink to={"/"}>
                 <div className="logo brand flex items-center">
-                    <Image imageUrl={appLogo} alt="App Logo" />
+                    <img src={appLogo} alt="App Logo" className="logo" />
                     <h3 className="brand-text uppercase text-4xl text-red-600 font-extrabold tracking-wide">Neoflix</h3>
                 </div>
             </NavLink>

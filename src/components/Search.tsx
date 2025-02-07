@@ -13,7 +13,6 @@ const Search = ({ searchTerm, setSearchTerm }: TSearchProps) => {
         event.preventDefault();
         const value = event.target.value;
         setSearchTerm(value)
-        console.log(value)
     }
 
     return (
@@ -25,4 +24,5 @@ const Search = ({ searchTerm, setSearchTerm }: TSearchProps) => {
         </>
     )
 }
+
 export default Search
