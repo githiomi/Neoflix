@@ -11,7 +11,7 @@ type MovieCardProps = {
 const MovieCard = (props: MovieCardProps) => {
 
    const movie = props.movie;
-   const { id, title, vote_average, poster_path, release_date, original_language, adult, genre_ids } = movie;
+   const { id, title, vote_average, poster_path, release_date, original_language, adult } = movie;
 
    const { isFavourite, addToFavourites, removeFromFavourites } = useMovieContext();
    const favourite = isFavourite(id);
@@ -64,11 +64,6 @@ const MovieCard = (props: MovieCardProps) => {
                      </p>
                   </div>
 
-                  <div className="genres text-amber-400">
-                     {genre_ids
-                        ? genre_ids.map((genre_id, index) => <span key={index}>{genre_id} - </span>)
-                        : "No Genres Available"}
-                  </div>
                </div>
 
             </div>
