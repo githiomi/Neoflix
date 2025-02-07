@@ -87,7 +87,7 @@ button:focus-visible {
     @apply mt-20;
 
     & ul {
-      @apply flex flex-row overflow-y-auto gap-5 -mt-10 w-full hide-scrollbar;
+      @apply flex flex-row overflow-y-auto gap-10 my-20 w-full hide-scrollbar;
     }
 
     & ul li {
@@ -95,11 +95,11 @@ button:focus-visible {
     }
 
     & ul li p {
-      @apply fancy-text mt-[22px] text-nowrap;
+      @apply fancy-text mt-[22px] text-nowrap text-9xl;
     }
 
     & ul li img {
-      @apply w-[127px] h-[163px] rounded-lg object-cover -ml-3.5;
+      @apply w-[200px] h-[250px] rounded-lg object-cover -ml-1.5;
     }
   }
 
@@ -225,7 +225,7 @@ button:focus-visible {
 
 @utility fancy-text {
   -webkit-text-stroke: 3px rgba(206, 206, 251, 0.5);
-  font-size: 100px;
+  font-size: 110px;
   font-family: "Bebas Neue", sans-serif;
 }
 

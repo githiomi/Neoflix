@@ -1,7 +1,7 @@
 import axios from "axios";
 import Movie from "../data/Movie";
 import Response from "../data/Response";
-import { updateTrendingMovies } from '../appwrite.ts';
+import { fetchTrendingMovies, updateTrendingMoviesCount } from '../appwrite.ts';
 
 // Constants
 const API_BASE_URL: string = "https://api.themoviedb.org/3" as string;
@@ -31,9 +31,15 @@ export const fetchMovies = async (searchQuery: string = ""): Promise<Movie[]> =>
    const movies = response.results;
 
    if (searchQuery && movies.length > 0) {
-      updateTrendingMovies(searchQuery, movies[0]);
+      updateTrendingMoviesCount(searchQuery, movies[0]);
    }
 
    return movies;
+
+}
+
+export const getTrendingMovies = async () => {
+
+   return await fetchTrendingMovies();
 
 }

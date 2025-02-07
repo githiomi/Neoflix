@@ -11,7 +11,7 @@ const appwrite_client = new Client()
 
 const appwrite_database = new Databases(appwrite_client);
 
-export const updateTrendingMovies = async (searchTerm: string, movie: Movie) => {
+export const updateTrendingMoviesCount = async (searchTerm: string, movie: Movie) => {
 
    // check if a document exists for the search term
    try {
@@ -42,6 +42,27 @@ export const updateTrendingMovies = async (searchTerm: string, movie: Movie) => 
          });
 
       }
+   } catch (error: AppwriteException) {
+      alert(error.message);
+   }
+
+}
+
+export const fetchTrendingMovies = async () => {
+
+   // Get the movies that are trending
+   try {
+
+      // Get the list of documents
+      const trending_movies = await appwrite_database.listDocuments(appwrite_database_id, appwrite_schema_id,
+         [
+            Query.limit(5),
+            Query.orderDesc('search_count')
+         ]
+      );
+
+      return trending_movies.documents;
+
    } catch (error: AppwriteException) {
       alert(error.message);
    }
