@@ -1,6 +1,6 @@
-import Movie from "@/data/Movie"
 import '../index.css';
 import Image from "./Image";
+import Movie from "@/data/Movie"
 import { FaHeart, FaStar } from "react-icons/fa";
 import { useMovieContext } from "../contexts/FavouriteContext";
 
@@ -37,6 +37,7 @@ const MovieCard = (props: MovieCardProps) => {
             <Image imageUrl={poster_path} alt={`${title} Poster`} />
 
             <div className="movie-details mt-4 mx-2">
+
                <div className="movie-title flex flex-row gap-4">
                   <h3 className="text-red-600 text-xl uppercase">{title}</h3>
                   {adult && <span className="movie-extra">PG-13</span>}
@@ -68,8 +69,8 @@ const MovieCard = (props: MovieCardProps) => {
                         ? genre_ids.map(genre_id => <span>{genre_id} - </span>)
                         : "No Genres Available"}
                   </div>
-
                </div>
+
             </div>
 
          </div>

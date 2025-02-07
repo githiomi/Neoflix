@@ -185,6 +185,38 @@ button:focus-visible {
       @apply bg-gray-700 text-white rounded text-sm px-2 py-1 uppercase;
     }
   }
+
+  /* Profile Component */
+  .profile-picture {
+    @apply w-fit overflow-hidden border-4 border-red-600 rounded-full bg-black cursor-pointer;
+
+    & img {
+      @apply w-full h-full object-cover rounded-full;
+    }
+
+    &:hover {
+      & .overlay {
+        @apply w-full h-full top-0 left-0 bg-black opacity-90 z-10;
+      }
+    }
+  }
+
+  .profile-form {
+    @apply border-2 border-white p-10 rounded-xl;
+
+    & label {
+      @apply uppercase font-bold;
+    }
+
+    & input,
+    select {
+      @apply my-2 px-2 py-3 text-white outline-0 border-1 rounded-lg border-red-600 focus:border-2;
+    }
+  }
+
+  .submit-btn {
+    @apply w-full bg-red-600 text-white border-2 border-white hover:bg-red-800 uppercase tracking-wide rounded-lg px-10 py-2 font-bold cursor-pointer mt-8;
+  }
 }
 
 @utility text-gradient {

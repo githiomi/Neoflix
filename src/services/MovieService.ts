@@ -1,6 +1,6 @@
 import axios from "axios";
-import Response from "../data/Response";
 import Movie from "../data/Movie";
+import Response from "../data/Response";
 
 // Constants
 const API_BASE_URL: string = "https://api.themoviedb.org/3" as string;

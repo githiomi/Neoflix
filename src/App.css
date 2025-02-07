@@ -43,6 +43,13 @@
   outline: none;
 }
 
+/* Profile Component */
+.profile-picture {
+  height: 15rem;
+  will-change: filter;
+  transition: filter 300ms;
+}
+
 /*@keyframes logo-spin {*/
 /*  from {*/
 /*    transform: rotate(0deg);*/

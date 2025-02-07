@@ -1,11 +1,11 @@
 import { useState } from "react";
 import Movie from "../data/Movie.ts";
-import Trending from "../components/Trending.tsx";
+import { useDebounce } from 'react-use';
 import Banner from "../components/Banner.tsx";
 import Search from "../components/Search.tsx";
 import { useQuery } from "@tanstack/react-query";
+import Trending from "../components/Trending.tsx";
 import MovieCard from "../components/MovieCard.tsx";
-import { useDebounce } from 'react-use';
 import { fetchMovies } from "../services/MovieService.ts";
 
 const Home = () => {
@@ -19,7 +19,7 @@ const Home = () => {
 
     const {
         data: fetchedMovies,
-        isFetching: isFetchingMovies,
+        isPending: isFetchingMovies,
         isError: isMoviesError,
         error: movieFetchError
     } = useQuery({
@@ -38,12 +38,10 @@ const Home = () => {
 
             <Search searchTerm={search} setSearchTerm={setSearch} />
 
-            <p>You have searched for: {search}</p>
-
             <Trending />
 
             {isFetchingMovies && (
-                <div className="text-green-500 uppercase">
+                <div className="text-green-500 uppercase flex items-center">
                     <p>Loading. Please wait...</p>
                 </div>
             )}
@@ -51,11 +49,11 @@ const Home = () => {
             {fetchedMovies?.length
                 ? (
                     <section className="all-movies">
-                        <p className="text-red-500 text-2xl font-bold uppercase">
-                            {search
-                                ? `Search Results for ${search.trim()}`
-                                : "Explore Our Wide Range of Movies!"}
-                        </p>
+
+                        {!search
+                            ? <p className="text-white uppercase text-3xl font-bold my-4 text-center">Explore <span className="text-gradient">Movies</span> Now!</p>
+                            : <p className="text-white uppercase text-3xl font-bold my-4 text-center">Movie Results for: <span className="text-gradient">{search}</span> </p>
+                        }
 
                         <ul>
                             {
@@ -68,8 +66,8 @@ const Home = () => {
                 : !isFetchingMovies && (
                     <p className="text-center text-red-600 text-2xl uppercase">No Movies Found!</p>
                 )}
-
         </>
     )
 }
+
 export default Home

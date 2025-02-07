@@ -1,7 +1,9 @@
+import '../index.css';
+
 const Trending = () => {
     return (
         <>
-            <h2 className="text-red-500 text-2xl uppercase font-bold">Trending Now</h2>
+            <h2 className="text-white uppercase text-3xl font-bold my-4 text-center">Top <span className="text-gradient">Trending</span> Movies!</h2>
         </>
     )
 }

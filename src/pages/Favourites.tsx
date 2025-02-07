@@ -21,7 +21,6 @@ const Favourites = () => {
                 {
                     favourites?.map(
                         (movie: Movie) => <MovieCard key={movie.id} movie={movie} />)
-
                 }
             </ul>
         </section>
