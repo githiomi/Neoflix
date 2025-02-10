@@ -7,6 +7,7 @@ import Header from "./components/Header.tsx";
 import ErrorComponent from './pages/Error.tsx';
 import Favourites from "./pages/Favourites.tsx";
 import { Route, Routes } from "react-router-dom";
+import MovieDetails from "./pages/MovieDetails.tsx";
 import { FavouriteProvider } from "./contexts/FavouriteContext.tsx";
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
                         <Route index errorElement={<ErrorComponent />} element={<Home />} />
                         <Route path="favourites" element={<Favourites />} />
                         <Route path="profile" element={<Profile user={currentUser} />} />
+                        <Route path="details/:movie_id" element={<MovieDetails />} />
                     </Routes>
                 </FavouriteProvider>
             </section>
