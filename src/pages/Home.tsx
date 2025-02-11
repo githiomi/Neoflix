@@ -41,7 +41,7 @@ const Home = () => {
             <Trending />
 
             {isFetchingMovies && (
-                <div className="text-green-500 uppercase flex items-center">
+                <div className="text-gray-500 uppercase text-center">
                     <p>Loading. Please wait...</p>
                 </div>
             )}

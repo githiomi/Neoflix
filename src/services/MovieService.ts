@@ -1,8 +1,8 @@
 import axios from "axios";
 import Movie from "../data/Movie";
 import Response from "../data/Response";
+import {MovieSpecs} from "../data/MovieSpecs.ts";
 import {fetchTrendingMovies, updateTrendingMoviesCount} from '../appwrite.ts';
-import {MovieSpecs} from "@/data/MovieSpecs.ts";
 
 // Constants
 const API_BASE_URL: string = "https://api.themoviedb.org/3" as string;

@@ -11,6 +11,7 @@
     color-scheme: light dark;
     color: rgba(255, 255, 255, 0.87);
     background-color: #070707;
+    --custom-animation-duration: .5s;
 
     font-synthesis: none;
     text-rendering: optimizeLegibility;
@@ -89,7 +90,7 @@ button:focus-visible {
         }
 
         & ul li {
-            @apply min-w-[230px] flex flex-row items-center;
+            @apply min-w-[230px] flex flex-row items-center cursor-pointer;
         }
 
         & ul li p {
@@ -97,7 +98,11 @@ button:focus-visible {
         }
 
         & ul li img {
-            @apply w-[200px] h-[250px] rounded-lg object-cover -ml-1.5;
+            @apply w-[200px] h-[280px] rounded-xl object-cover -ml-0.5;
+        }
+
+        & ul li:hover img {
+            @apply scale-103 duration-400;
         }
     }
 
@@ -135,14 +140,19 @@ button:focus-visible {
             }
 
             & .favourite {
-                animation: reveal .5s;
-                @apply block absolute right-4 top-4 z-15;
+                animation: reveal var(--custom-animation-duration);
+                @apply block absolute right-4 top-4 z-10;
             }
 
             & .play {
                 animation: reveal .5s;
-                @apply flex;
+                @apply flex z-10;
             }
+
+            & img {
+                @apply scale-105 duration-400 ease-in-out z-5;
+            }
+
         }
 
         & .favourite {

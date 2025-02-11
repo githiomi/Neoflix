@@ -1,11 +1,11 @@
+import '../index.css';
+import Movie from "@/data/Movie.ts";
 import {useParams} from "react-router-dom";
 import {useQuery} from "@tanstack/react-query";
-import image_fallback from "../assets/images/no-movie.png";
-import {convertMovieSpecToMovie, fetchMovieById} from "../services/MovieService.ts";
 import {FaHeart, FaStar} from "react-icons/fa";
-import '../index.css';
+import image_fallback from "../assets/images/no-movie.png";
 import {useMovieContext} from "../contexts/FavouriteContext.tsx";
-import Movie from "@/data/Movie.ts";
+import {convertMovieSpecToMovie, fetchMovieById} from "../services/MovieService.ts";
 
 const MovieDetails = () => {
 
@@ -31,7 +31,7 @@ const MovieDetails = () => {
     }
 
     if (isLoading)
-        return <div>Loading...</div>
+        return <div>Loading your trending movies...</div>
 
     if (isError)
         return <div>Error fetching movie data</div>
