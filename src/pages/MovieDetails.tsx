@@ -10,7 +10,7 @@ import {convertMovieSpecToMovie, fetchMovieById} from "../services/MovieService.
 const MovieDetails = () => {
 
     const {movie_id} = useParams();
-    const { isFavourite, addToFavourites, removeFromFavourites } = useMovieContext();
+    const {isFavourite, addToFavourites, removeFromFavourites} = useMovieContext();
 
     const {
         data: movie,
@@ -21,20 +21,20 @@ const MovieDetails = () => {
         queryFn: () => fetchMovieById(movie_id!)
     });
 
-    const toggleFavourite = (e : React.MouseEvent<HTMLDivElement>) => {
+    const toggleFavourite = (e: React.MouseEvent<HTMLDivElement>) => {
         e.preventDefault();
 
-        const movieDTO : Movie = convertMovieSpecToMovie(movie!);
+        const movieDTO: Movie = convertMovieSpecToMovie(movie!);
 
         if (favouriteStatus) removeFromFavourites(movie!.id)
         else addToFavourites(movieDTO);
     }
 
     if (isLoading)
-        return <div>Loading your trending movies...</div>
+        return <div className="min-h-[70vh] flex items-center justify-center text-center">Loading movie details...</div>
 
     if (isError)
-        return <div>Error fetching movie data</div>
+        return <div className="min-h-[70vh] flex items-center justify-center text-center text-red-600 underline font-bold">Error fetching movie data</div>
 
     const favouriteStatus = isFavourite(parseInt(movie_id!))
     const image_src: string = movie?.poster_path ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}` : image_fallback;
@@ -70,7 +70,7 @@ const MovieDetails = () => {
                     <p className="text-gray-500 font-bold">{movie?.vote_count} total ratings</p>
                 </div>
 
-                <div className="movie-genres mt-2 mb-4">
+                <div className="movie-genres mt-2 mb-4 text-sm">
                     {
                         movie?.genres.map((genre, index) =>
                             <span
@@ -80,39 +80,45 @@ const MovieDetails = () => {
                     }
                 </div>
 
-                <div className="languages">
+                <div className="languages text-pretty">
+                    Spoken Languages:
+                    <span className="mx-2">
                     {
                         movie?.spoken_languages.map((language, index) =>
                             <span key={index}
-                                  className="text-gray-500 font-bold uppercase">
+                                  className="text-gray-500 font-bold uppercase text-sm">
                                     {language.name}{index < movie?.spoken_languages.length - 1 ? ', ' : ''}
                             </span>)
                     }
+                    </span>
                 </div>
 
-                <div className="movie-description max-w-[90%] my-4 py-4">
+                <div className="movie-description max-w-[90%] my-4 py-4 text-justify">
                     <p className="text-lg">
                         {movie?.overview}
                     </p>
                 </div>
 
                 <div className="extra-details">
-                    <p className="text-gray-500 font-bold">Release Date: <span className="text-gray-700">{movie?.release_date}</span></p>
+                    <p className="text-gray-500 font-bold">Release Date: <span
+                        className="text-gray-700 mx-1">{movie?.release_date}</span></p>
 
-                    <p className="text-gray-500 font-bold">Runtime: <span className="text-gray-700">{movie?.runtime} minutes</span></p>
+                    <p className="text-gray-500 font-bold">Runtime: <span
+                        className="text-gray-700 mx-1">{movie?.runtime} minutes</span></p>
 
-                    <p className="text-gray-500 font-bold">Revenue: <span className="text-gray-700">{ new Intl.NumberFormat('en-US', {
+                    <p className="text-gray-500 font-bold">Revenue: <span
+                        className="text-gray-700 mx-1">{new Intl.NumberFormat('en-US', {
                         style: 'currency',
                         currency: 'USD'
                     }).format(movie!.revenue)}</span></p>
                 </div>
 
-                <div className="flex flex-row gap-8 my-4">
+                <div className="flex flex-row gap-8 my-8">
 
                     <div onClick={toggleFavourite}
-                        className={`${favouriteStatus ? 'bg-red-500' : 'bg-white'} flex flex-row items-center justify-center p-4 rounded-2xl gap-4 cursor-pointer`}>
-                        <FaHeart className={`${favouriteStatus ? 'text-white' : 'text-red-500'}`} size={20} />
-                        <p className={`${favouriteStatus ? 'text-white' : 'text-black'} uppercase font-bold`}>{favouriteStatus? 'Remove from Favourites' : 'Add to Favourites'}</p>
+                         className={`${favouriteStatus ? 'bg-red-500' : 'bg-white'} flex flex-row items-center justify-center p-4 rounded-2xl gap-4 cursor-pointer`}>
+                        <FaHeart className={`${favouriteStatus ? 'text-white' : 'text-red-500'}`} size={20}/>
+                        <p className={`${favouriteStatus ? 'text-white' : 'text-black'} uppercase font-bold`}>{favouriteStatus ? 'Remove from Favourites' : 'Add to Favourites'}</p>
                     </div>
 
                 </div>
